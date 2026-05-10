@@ -1,0 +1,52 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+export enum LoanScheme {
+  NEW_YOUTH = 'NEW_YOUTH',     // 青年安心成家貸款
+  NEST_NEST = 'NEST_NEST',     // 築巢優利貸
+  TOP_2500 = 'TOP_2500',       // 一般首購-2500大企業
+  OTHER_FIRST = 'OTHER_FIRST', // 一般首購-非2500大
+}
+
+export interface GuarantorInfo {
+  otherLoanMonthly?: number;
+  residenceCity: string;
+}
+
+export interface BorrowerInfo {
+  age?: number;
+  scheme: LoanScheme;
+  /** Custom override; falls back to SCHEME_DEFAULT_RATES when undefined. */
+  annualRate?: number;
+  otherLoanMonthly?: number;
+  residenceCity: string;
+  hasGuarantor: boolean;
+  guarantor: GuarantorInfo;
+}
+
+export interface PropertyInfo {
+  city: string;
+  district: string;
+  isPreSale: boolean;
+  houseAge?: number;
+  purchasePrice?: number;
+  needsGracePeriod: boolean;
+  gracePeriodLTV?: number;
+}
+
+export interface CalculationResult {
+  ltv: number;
+  loanAmount: number;
+  monthlyRepayment: number;
+  requiredAnnualIncome: number;
+}
+
+export interface GracePeriodResult {
+  label: string;
+  ratio: number;
+  loanAmount: number;
+  monthlyRepayAfterGrace: number;
+  requiredAnnualIncome: number;
+}
